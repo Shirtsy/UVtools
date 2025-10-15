@@ -9,6 +9,8 @@
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +21,7 @@ using UVtools.Core.Scripting;
 namespace UVtools.ScriptSample;
 
 /// <summary>
-/// Performs a black inset around objects
+/// Does some neat stuff!
 /// </summary>
 public class ScriptSmolTest1 : ScriptGlobals
 {
@@ -51,7 +53,7 @@ public class ScriptSmolTest1 : ScriptGlobals
     public void ScriptInit()
     {
         Script.Name = "Smol Test 1";
-        Script.Description = "Does some fun unpredictable thngs!";
+        Script.Description = "Does some fun unpredictable things!";
         Script.Author = "Smol";
         Script.Version = new Version(0, 1);
         Script.UserInputs.AddRange([
@@ -72,9 +74,20 @@ public class ScriptSmolTest1 : ScriptGlobals
     /// <returns>True if executes successfully to the end, otherwise false.</returns>
     public bool ScriptExecute()
     {
-        
-        
         // return true if not cancelled by user
         return !Progress.Token.IsCancellationRequested;
+    }
+
+    private struct Voxel(float x, float y, float z, int value)
+    {
+        public float X = x;
+        public float Y = y;
+        public float Z = z;
+        public int Value = value;
+    }
+
+    private IEnumerable<Voxel> Voxels()
+    {
+        yield return new Voxel();
     }
 }
